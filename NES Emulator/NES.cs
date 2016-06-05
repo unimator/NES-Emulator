@@ -7,7 +7,7 @@ using System.Threading;
 namespace NES_Emulator
 {
     public class NES
-    {//test
+    {
         private static readonly ushort StackOffset = 0x100;
 
         public Debugger debugger;
