@@ -44,7 +44,13 @@
   <ItemGroup>
     <Compile Include="CPU.cs" />
     <Compile Include="Debugger.cs" />
-    <Compile Include="InstructionSet_Constructor.cs" />
+    <Compile Include="Display.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Display.Designer.cs">
+      <DependentUpon>Display.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Instructions\InstructionSet_Constructor.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,21 +80,34 @@
     <Compile Include="Instructions\ROL.cs" />
     <Compile Include="Instructions\SetFlag.cs" />
     <Compile Include="Instructions\Instructions.cs" />
-    <Compile Include="InstructionSet.cs" />
+    <Compile Include="Instructions\InstructionSet.cs" />
     <Compile Include="Instructions\Other.cs" />
     <Compile Include="Instructions\STA.cs" />
     <Compile Include="Instructions\STY.cs" />
     <Compile Include="Instructions\STX.cs" />
     <Compile Include="Instructions\Transfer.cs" />
-    <Compile Include="NES.cs" />
+    <Compile Include="Memory\MemoryBase.cs" />
+    <Compile Include="Memory\CPUMemory.cs" />
+    <Compile Include="Memory\MemoryHelper.cs" />
+    <Compile Include="Memory\PPUMemory.cs" />
+    <Compile Include="NES\NESEnums.cs" />
+    <Compile Include="NES\NESEventArgs.cs" />
+    <Compile Include="NES\NES.cs" />
+    <Compile Include="NESROM.cs" />
     <Compile Include="PPU.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Display.resx">
+      <DependentUpon>Display.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestPrograms\TestProgram1" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

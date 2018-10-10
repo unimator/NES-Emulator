@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public class PHA : Instruction
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0x48; } }
+        public override byte OpCode { get { return 0x48; } }
 
         public override void Operation()
         {
-            nes.Push(nes.cpu.A);
+            Nes.Push(Nes.CPU.A);
         }
     }
 
@@ -21,11 +16,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0x08; } }
+        public override byte OpCode { get { return 0x08; } }
 
         public override void Operation()
         {
-            nes.Push((byte)nes.cpu.P);
+            Nes.Push((byte)Nes.CPU.P);
         }
     }
 
@@ -33,12 +28,12 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x68; } }
+        public override byte OpCode { get { return 0x68; } }
 
         public override void Operation()
         {
-            nes.cpu.A = nes.Pop();
-            Flags(nes.cpu.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Nes.CPU.A = Nes.Pop();
+            Flags(Nes.CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
         }
     }
 
@@ -46,11 +41,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x28; } }
+        public override byte OpCode { get { return 0x28; } }
 
         public override void Operation()
         {
-            nes.cpu.P = (ProcessorStatus)nes.Pop();
+            Nes.CPU.P = (ProcessorStatus)Nes.Pop();
         }
     }
 }

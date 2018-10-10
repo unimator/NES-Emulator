@@ -9,11 +9,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x18; } }
+        public override byte OpCode { get { return 0x18; } }
 
         public override void Operation()
         {
-            nes.cpu.P &= ~ProcessorStatus.Carry;
+            Nes.CPU.P &= ~ProcessorStatus.Carry;
         }
     }
 
@@ -21,11 +21,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0xD8; } }
+        public override byte OpCode { get { return 0xD8; } }
 
         public override void Operation()
         {
-            nes.cpu.P &= ~ProcessorStatus.Decimal_Mode;
+            Nes.CPU.P &= ~ProcessorStatus.DecimalMode;
         }
     }
 
@@ -33,11 +33,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x58; } }
+        public override byte OpCode { get { return 0x58; } }
 
         public override void Operation()
         {
-            nes.cpu.P &= ~ProcessorStatus.Interrupt_Disable;
+            Nes.CPU.P &= ~ProcessorStatus.InterruptDisable;
         }
     }
 
@@ -45,11 +45,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0xB8; } }
+        public override byte OpCode { get { return 0xB8; } }
 
         public override void Operation()
         {
-            nes.cpu.P &= ~ProcessorStatus.Overflow;
+            Nes.CPU.P &= ~ProcessorStatus.Overflow;
         }
     }
 
@@ -57,11 +57,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x38; } }
+        public override byte OpCode { get { return 0x38; } }
 
         public override void Operation()
         {
-            nes.cpu.P |= ProcessorStatus.Carry;
+            Nes.CPU.P |= ProcessorStatus.Carry;
         }
     }
 
@@ -69,11 +69,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0xF8; } }
+        public override byte OpCode { get { return 0xF8; } }
 
         public override void Operation()
         {
-            nes.cpu.P |= ProcessorStatus.Decimal_Mode;
+            Nes.CPU.P |= ProcessorStatus.DecimalMode;
         }
     }
 
@@ -81,11 +81,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x78; } }
+        public override byte OpCode { get { return 0x78; } }
 
         public override void Operation()
         {
-            nes.cpu.P |= ProcessorStatus.Interrupt_Disable;
+            Nes.CPU.P |= ProcessorStatus.InterruptDisable;
         }
     }
 }

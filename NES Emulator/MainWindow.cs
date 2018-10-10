@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using NES_Emulator.Memory;
 
 namespace NES_Emulator
 {
@@ -14,10 +10,10 @@ namespace NES_Emulator
         Brush[] palette;
         byte[] RAM;
 
-        public MainWindow(byte [] RAM)
+        public MainWindow(CPUMemory memory)
         {
             InitializeComponent();
-            this.RAM = RAM;
+            this.RAM = memory.Memory;
             palette = new Brush[0x10];
             palette[0x0] = new SolidBrush(Color.Black);
             palette[0x1] = new SolidBrush(Color.White);

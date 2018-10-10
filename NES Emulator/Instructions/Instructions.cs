@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator
+﻿namespace NES_Emulator.Instructions
 {
     public abstract class Instruction
     {
-        public static NES nes = null;
+        public static NES.NES Nes = null;
 
-        public abstract byte OPCode { get; }
+        public abstract byte OpCode { get; }
         public abstract byte NoBytes { get; }
         public abstract byte NoCycles { get; }
 
@@ -19,11 +14,11 @@ namespace NES_Emulator
         {
             get
             {
-                return nes.RAM[nes.cpu.PC + 1];
+                return Nes.CPU.Memory[Nes.CPU.PC + 1];
             }
             set
             {
-                nes.RAM[nes.cpu.PC + 1] = value;
+                Nes.CPU.Memory[Nes.CPU.PC + 1] = value;
             } 
         }
 
@@ -31,11 +26,11 @@ namespace NES_Emulator
         {
             get
             {
-                return nes.RAM[nes.RAM[nes.cpu.PC + 1]];
+                return Nes.CPU.Memory[Nes.CPU.Memory[Nes.CPU.PC + 1]];
             }
             set
             {
-                nes.RAM[nes.RAM[nes.cpu.PC + 1]] = value;
+                Nes.CPU.Memory[Nes.CPU.Memory[Nes.CPU.PC + 1]] = value;
             }
         }
 
@@ -43,11 +38,11 @@ namespace NES_Emulator
         {
             get
             {
-                return nes.RAM[(byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.X)];
+                return Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X)];
             }
             set
             {
-                nes.RAM[(byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.X)] = value;
+                Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X)] = value;
             }
         }
 
@@ -55,11 +50,11 @@ namespace NES_Emulator
         {
             get
             {
-                return nes.RAM[(byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.Y)];
+                return Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Y)];
             }
             set
             {
-                nes.RAM[(byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.Y)] = value;
+                Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Y)] = value;
             }
         }
 
@@ -67,13 +62,13 @@ namespace NES_Emulator
         {
             get
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                return nes.RAM[Address];
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                return Nes.CPU.Memory[address];
             }
             set
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                nes.RAM[Address] = value;
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                Nes.CPU.Memory[address] = value;
             }
         }
 
@@ -81,13 +76,13 @@ namespace NES_Emulator
         {
             get
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                return nes.RAM[Address + nes.cpu.X];
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                return Nes.CPU.Memory[address + Nes.CPU.X];
             }
             set
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                nes.RAM[Address + nes.cpu.X] = value;
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                Nes.CPU.Memory[address + Nes.CPU.X] = value;
             }
         }
 
@@ -95,13 +90,13 @@ namespace NES_Emulator
         {
             get
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                return nes.RAM[Address + nes.cpu.Y];
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                return Nes.CPU.Memory[address + Nes.CPU.Y];
             }
             set
             {
-                ushort Address = (ushort)(nes.RAM[nes.cpu.PC + 1] + nes.RAM[nes.cpu.PC + 2] * 0x100);
-                nes.RAM[Address + nes.cpu.Y] = value;
+                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
+                Nes.CPU.Memory[address + Nes.CPU.Y] = value;
             }
         }
 
@@ -109,15 +104,15 @@ namespace NES_Emulator
         {
             get
             {
-                ushort Address = (byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.X);
-                Address = (ushort)(nes.RAM[Address] + nes.RAM[Address + 1] * 0x100);
-                return nes.RAM[Address];
+                ushort address = (byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X);
+                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
+                return Nes.CPU.Memory[address];
             }
             set
             {
-                ushort Address = (byte)(nes.RAM[nes.cpu.PC + 1] + nes.cpu.X);
-                Address = (ushort)(nes.RAM[Address] + nes.RAM[Address + 1] * 0x100);
-                nes.RAM[Address] = value;
+                ushort address = (byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X);
+                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
+                Nes.CPU.Memory[address] = value;
             }
         }
 
@@ -125,30 +120,30 @@ namespace NES_Emulator
         {
             get
             {
-                ushort Address = nes.RAM[nes.cpu.PC + 1];
-                Address = (ushort)(nes.RAM[Address] + nes.RAM[Address + 1] * 0x100);
-                return nes.RAM[Address + nes.cpu.Y];
+                ushort address = Nes.CPU.Memory[Nes.CPU.PC + 1];
+                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
+                return Nes.CPU.Memory[address + Nes.CPU.Y];
             }
             set
             {
-                ushort Address = nes.RAM[nes.cpu.PC + 1];
-                Address = (ushort)(nes.RAM[Address] + nes.RAM[Address + 1] * 0x100);
-                nes.RAM[Address + nes.cpu.Y] = value;
+                ushort address = Nes.CPU.Memory[Nes.CPU.PC + 1];
+                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
+                Nes.CPU.Memory[address + Nes.CPU.Y] = value;
             }
         }
 
-        public void Flags(byte Result, ProcessorStatus Flags)
+        public void Flags(byte result, ProcessorStatus flags)
         {
-            if((Flags & ProcessorStatus.Zero) != 0)
+            if((flags & ProcessorStatus.Zero) != 0)
             {
-                if (Result == 0) nes.cpu.P |= ProcessorStatus.Zero;
-                else nes.cpu.P &= ~ProcessorStatus.Zero;
+                if (result == 0) Nes.CPU.P |= ProcessorStatus.Zero;
+                else Nes.CPU.P &= ~ProcessorStatus.Zero;
             }
 
-            if ((Flags & ProcessorStatus.Negative) != 0)
+            if ((flags & ProcessorStatus.Negative) != 0)
             {
-                if ((Result & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Negative;
-                else nes.cpu.P &= ~ProcessorStatus.Negative;
+                if ((result & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Negative;
+                else Nes.CPU.P &= ~ProcessorStatus.Negative;
             }
         }
     }

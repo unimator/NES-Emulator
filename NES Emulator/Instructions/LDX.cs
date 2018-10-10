@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public abstract class LDX : Instruction
     {
         public void Operation_LDX(byte M)
         {
-            nes.cpu.X = M;
+            Nes.CPU.X = M;
 
-            Flags(nes.cpu.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(Nes.CPU.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
         }
     }
 
@@ -19,7 +14,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0xA2; } }
+        public override byte OpCode { get { return 0xA2; } }
 
         public override void Operation()
         {
@@ -31,7 +26,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0xA6; } }
+        public override byte OpCode { get { return 0xA6; } }
 
         public override void Operation()
         {
@@ -43,7 +38,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xB6; } }
+        public override byte OpCode { get { return 0xB6; } }
 
         public override void Operation()
         {
@@ -55,7 +50,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xAE; } }
+        public override byte OpCode { get { return 0xAE; } }
 
         public override void Operation()
         {
@@ -67,7 +62,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xBE; } }
+        public override byte OpCode { get { return 0xBE; } }
 
         public override void Operation()
         {

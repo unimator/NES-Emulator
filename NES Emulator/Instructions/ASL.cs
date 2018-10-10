@@ -17,18 +17,18 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x0A; } }
+        public override byte OpCode { get { return 0x0A; } }
 
         public override void Operation()
         {
-            byte RES = (byte)(nes.cpu.A << 1);
+            byte RES = (byte)(Nes.CPU.A << 1);
 
-            if ((nes.cpu.A & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Carry;
-            else nes.cpu.P &= ~ProcessorStatus.Carry;
+            if ((Nes.CPU.A & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
+            else Nes.CPU.P &= ~ProcessorStatus.Carry;
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            nes.cpu.A = RES;
+            Nes.CPU.A = RES;
         }
     }
 
@@ -36,14 +36,14 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 5; } }
-        public override byte OPCode { get { return 0x06; } }
+        public override byte OpCode { get { return 0x06; } }
 
         public override void Operation()
         {
             byte RES = (byte)(ZeroPage << 1);
 
-            if ((ZeroPage & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Carry;
-            else nes.cpu.P &= ~ProcessorStatus.Carry;
+            if ((ZeroPage & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
+            else Nes.CPU.P &= ~ProcessorStatus.Carry;
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
@@ -55,14 +55,14 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0x16; } }
+        public override byte OpCode { get { return 0x16; } }
 
         public override void Operation()
         {
             byte RES = (byte)(ZeroPageX << 1);
 
-            if ((ZeroPageX & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Carry;
-            else nes.cpu.P &= ~ProcessorStatus.Carry;
+            if ((ZeroPageX & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
+            else Nes.CPU.P &= ~ProcessorStatus.Carry;
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
@@ -74,14 +74,14 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0x0E; } }
+        public override byte OpCode { get { return 0x0E; } }
 
         public override void Operation()
         {
             byte RES = (byte)(Absolute << 1);
 
-            if ((Absolute & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Carry;
-            else nes.cpu.P &= ~ProcessorStatus.Carry;
+            if ((Absolute & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
+            else Nes.CPU.P &= ~ProcessorStatus.Carry;
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
@@ -93,14 +93,14 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 7; } }
-        public override byte OPCode { get { return 0x1E; } }
+        public override byte OpCode { get { return 0x1E; } }
 
         public override void Operation()
         {
             byte RES = (byte)(AbsoluteX << 1);
 
-            if ((AbsoluteX & (1 << 7)) != 0) nes.cpu.P |= ProcessorStatus.Carry;
-            else nes.cpu.P &= ~ProcessorStatus.Carry;
+            if ((AbsoluteX & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
+            else Nes.CPU.P &= ~ProcessorStatus.Carry;
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 

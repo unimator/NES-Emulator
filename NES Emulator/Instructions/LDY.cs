@@ -9,9 +9,9 @@ namespace NES_Emulator.Instructions
     {
         public void Operation_LDY(byte M)
         {
-            nes.cpu.Y = M;
+            Nes.CPU.Y = M;
 
-            Flags(nes.cpu.Y, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(Nes.CPU.Y, ProcessorStatus.Negative | ProcessorStatus.Zero);
         }
     }
 
@@ -19,7 +19,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0xA0; } }
+        public override byte OpCode { get { return 0xA0; } }
 
         public override void Operation()
         {
@@ -31,7 +31,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0xA4; } }
+        public override byte OpCode { get { return 0xA4; } }
 
         public override void Operation()
         {
@@ -43,7 +43,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xB4; } }
+        public override byte OpCode { get { return 0xB4; } }
 
         public override void Operation()
         {
@@ -55,7 +55,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xAC; } }
+        public override byte OpCode { get { return 0xAC; } }
 
         public override void Operation()
         {
@@ -67,7 +67,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0xBC; } }
+        public override byte OpCode { get { return 0xBC; } }
 
         public override void Operation()
         {

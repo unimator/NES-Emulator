@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public class STX_ZeroPage : Instruction
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0x86; } }
+        public override byte OpCode { get { return 0x86; } }
 
         public override void Operation()
         {
-            ZeroPage = nes.cpu.X;
+            ZeroPage = Nes.CPU.X;
         }
     }
 
@@ -21,11 +16,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x96; } }
+        public override byte OpCode { get { return 0x96; } }
 
         public override void Operation()
         {
-            ZeroPageY = nes.cpu.X;
+            ZeroPageY = Nes.CPU.X;
         }
     }
 
@@ -33,11 +28,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x8E; } }
+        public override byte OpCode { get { return 0x8E; } }
 
         public override void Operation()
         {
-            Absolute = nes.cpu.X;
+            Absolute = Nes.CPU.X;
         }
     }
 }

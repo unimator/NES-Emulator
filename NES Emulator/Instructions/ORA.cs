@@ -10,12 +10,12 @@ namespace NES_Emulator.Instructions
         protected void Operation_ORA(byte M)
         {
             // A | M -> A
-            byte A = nes.cpu.A;
+            byte A = Nes.CPU.A;
             byte RES = (byte)(A | M);
 
             Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            nes.cpu.A = RES;
+            Nes.CPU.A = RES;
         }
     }
 
@@ -23,7 +23,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x09; } }
+        public override byte OpCode { get { return 0x09; } }
 
         public override void Operation()
         {
@@ -35,7 +35,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0x05; } }
+        public override byte OpCode { get { return 0x05; } }
 
         public override void Operation()
         {
@@ -47,7 +47,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x15; } }
+        public override byte OpCode { get { return 0x15; } }
 
         public override void Operation()
         {
@@ -59,7 +59,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x0D; } }
+        public override byte OpCode { get { return 0x0D; } }
 
         public override void Operation()
         {
@@ -71,7 +71,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x1D; } }
+        public override byte OpCode { get { return 0x1D; } }
 
         public override void Operation()
         {
@@ -83,7 +83,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x19; } }
+        public override byte OpCode { get { return 0x19; } }
 
         public override void Operation()
         {
@@ -95,7 +95,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0x01; } }
+        public override byte OpCode { get { return 0x01; } }
 
         public override void Operation()
         {
@@ -107,7 +107,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 5; } }
-        public override byte OPCode { get { return 0x11; } }
+        public override byte OpCode { get { return 0x11; } }
 
         public override void Operation()
         {

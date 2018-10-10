@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public class STA_ZeroPage : Instruction
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 3; } }
-        public override byte OPCode { get { return 0x85; } }
+        public override byte OpCode { get { return 0x85; } }
 
         public override void Operation()
         {
-            ZeroPage = nes.cpu.A;
+            ZeroPage = Nes.CPU.A;
         }
     }
 
@@ -21,11 +16,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x95; } }
+        public override byte OpCode { get { return 0x95; } }
 
         public override void Operation()
         {
-            ZeroPageX = nes.cpu.A;
+            ZeroPageX = Nes.CPU.A;
         }
     }
 
@@ -33,11 +28,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 4; } }
-        public override byte OPCode { get { return 0x8D; } }
+        public override byte OpCode { get { return 0x8D; } }
 
         public override void Operation()
         {
-            Absolute = nes.cpu.A;
+            Absolute = Nes.CPU.A;
         }
     }
 
@@ -45,11 +40,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 5; } }
-        public override byte OPCode { get { return 0x9D; } }
+        public override byte OpCode { get { return 0x9D; } }
 
         public override void Operation()
         {
-            AbsoluteX = nes.cpu.A;
+            AbsoluteX = Nes.CPU.A;
         }
     }
 
@@ -57,11 +52,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 5; } }
-        public override byte OPCode { get { return 0x99; } }
+        public override byte OpCode { get { return 0x99; } }
 
         public override void Operation()
         {
-            AbsoluteY = nes.cpu.A;
+            AbsoluteY = Nes.CPU.A;
         }
     }
 
@@ -69,11 +64,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0x81; } }
+        public override byte OpCode { get { return 0x81; } }
 
         public override void Operation()
         {
-            IndirectX = nes.cpu.A;
+            IndirectX = Nes.CPU.A;
         }
     }
 
@@ -81,11 +76,11 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0x91; } }
+        public override byte OpCode { get { return 0x91; } }
 
         public override void Operation()
         {
-            IndirectY = nes.cpu.A;
+            IndirectY = Nes.CPU.A;
         }
     }
 }

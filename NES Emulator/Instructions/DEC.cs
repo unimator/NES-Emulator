@@ -13,7 +13,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 5; } }
-        public override byte OPCode { get { return 0xC6; } }
+        public override byte OpCode { get { return 0xC6; } }
 
         public override void Operation()
         {
@@ -26,7 +26,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 2; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0xD6; } }
+        public override byte OpCode { get { return 0xD6; } }
 
         public override void Operation()
         {
@@ -39,7 +39,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 6; } }
-        public override byte OPCode { get { return 0xCE; } }
+        public override byte OpCode { get { return 0xCE; } }
 
         public override void Operation()
         {
@@ -52,7 +52,7 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 3; } }
         public override byte NoCycles { get { return 7; } }
-        public override byte OPCode { get { return 0xDE; } }
+        public override byte OpCode { get { return 0xDE; } }
 
         public override void Operation()
         {
@@ -65,12 +65,12 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2  ; } }
-        public override byte OPCode { get { return 0xCA; } }
+        public override byte OpCode { get { return 0xCA; } }
 
         public override void Operation()
         {
-            nes.cpu.X = (byte)(nes.cpu.X - 1);
-            Flags(nes.cpu.X, ProcessorStatus.Zero | ProcessorStatus.Negative);
+            Nes.CPU.X = (byte)(Nes.CPU.X - 1);
+            Flags(Nes.CPU.X, ProcessorStatus.Zero | ProcessorStatus.Negative);
         }
     }
 
@@ -78,12 +78,12 @@ namespace NES_Emulator.Instructions
     {
         public override byte NoBytes { get { return 1; } }
         public override byte NoCycles { get { return 2; } }
-        public override byte OPCode { get { return 0x88; } }
+        public override byte OpCode { get { return 0x88; } }
 
         public override void Operation()
         {
-            nes.cpu.Y = (byte)(nes.cpu.Y - 1);
-            Flags(nes.cpu.Y, ProcessorStatus.Zero | ProcessorStatus.Negative);
+            Nes.CPU.Y = (byte)(Nes.CPU.Y - 1);
+            Flags(Nes.CPU.Y, ProcessorStatus.Zero | ProcessorStatus.Negative);
         }
     }
 }
