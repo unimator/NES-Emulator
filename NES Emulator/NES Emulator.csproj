@@ -93,10 +93,11 @@
     <Compile Include="NES\NESEnums.cs" />
     <Compile Include="NES\NESEventArgs.cs" />
     <Compile Include="NES\NES.cs" />
-    <Compile Include="NESROM.cs" />
+    <Compile Include="NesROM.cs" />
     <Compile Include="PPU.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Display.resx">

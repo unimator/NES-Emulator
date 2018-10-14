@@ -2,73 +2,54 @@
 {
     public abstract class Instruction
     {
-        public static NES.NES Nes = null;
+        protected readonly CPU CPU;
 
         public abstract byte OpCode { get; }
         public abstract byte NoBytes { get; }
         public abstract byte NoCycles { get; }
 
-        public abstract void Operation();
+        protected Instruction(CPU cpu)
+        {
+            CPU = cpu;
+        }
 
+        public abstract void Execute();
+        
         public byte Immediate
         {
-            get
-            {
-                return Nes.CPU.Memory[Nes.CPU.PC + 1];
-            }
-            set
-            {
-                Nes.CPU.Memory[Nes.CPU.PC + 1] = value;
-            } 
+            get => CPU.Memory[(ushort)(CPU.PC + 1)];
+            set => CPU.Memory[(ushort)(CPU.PC + 1)] = value;
         }
 
         public byte ZeroPage
         {
-            get
-            {
-                return Nes.CPU.Memory[Nes.CPU.Memory[Nes.CPU.PC + 1]];
-            }
-            set
-            {
-                Nes.CPU.Memory[Nes.CPU.Memory[Nes.CPU.PC + 1]] = value;
-            }
+            get => CPU.Memory[CPU.Memory[(ushort)(CPU.PC + 1)]];
+            set => CPU.Memory[CPU.Memory[(ushort)(CPU.PC + 1)]] = value;
         }
 
         public byte ZeroPageX
         {
-            get
-            {
-                return Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X)];
-            }
-            set
-            {
-                Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X)] = value;
-            }
+            get => CPU.Memory[(byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.X)];
+            set => CPU.Memory[(byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.X)] = value;
         }
 
         public byte ZeroPageY
         {
-            get
-            {
-                return Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Y)];
-            }
-            set
-            {
-                Nes.CPU.Memory[(byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Y)] = value;
-            }
+            get => CPU.Memory[(byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Y)];
+            set => CPU.Memory[(byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Y)] = value;
         }
 
         public byte Absolute
         {
             get
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                return Nes.CPU.Memory[address];
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                return CPU.Memory[address];
             }
             set
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                Nes.CPU.Memory[address] = value;
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                CPU.Memory[address] = value;
             }
         }
 
@@ -76,13 +57,13 @@
         {
             get
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                return Nes.CPU.Memory[address + Nes.CPU.X];
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                return CPU.Memory[(ushort)(address + CPU.X)];
             }
             set
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                Nes.CPU.Memory[address + Nes.CPU.X] = value;
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                CPU.Memory[(ushort)(address + CPU.X)] = value;
             }
         }
 
@@ -90,13 +71,13 @@
         {
             get
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                return Nes.CPU.Memory[address + Nes.CPU.Y];
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                return CPU.Memory[(ushort)(address + CPU.Y)];
             }
             set
             {
-                ushort address = (ushort)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.Memory[Nes.CPU.PC + 2] * 0x100);
-                Nes.CPU.Memory[address + Nes.CPU.Y] = value;
+                var address = (ushort)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.Memory[(ushort)(CPU.PC + 2)] >> 8);
+                CPU.Memory[(ushort)(address + CPU.Y)] = value;
             }
         }
 
@@ -104,15 +85,15 @@
         {
             get
             {
-                ushort address = (byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X);
-                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
-                return Nes.CPU.Memory[address];
+                ushort address = (byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.X);
+                address = (ushort)(CPU.Memory[address] + CPU.Memory[(ushort)(address + 1)] >> 8);
+                return CPU.Memory[address];
             }
             set
             {
-                ushort address = (byte)(Nes.CPU.Memory[Nes.CPU.PC + 1] + Nes.CPU.X);
-                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
-                Nes.CPU.Memory[address] = value;
+                ushort address = (byte)(CPU.Memory[(ushort)(CPU.PC + 1)] + CPU.X);
+                address = (ushort)(CPU.Memory[address] + CPU.Memory[(ushort)(address + 1)] >> 8);
+                CPU.Memory[address] = value;
             }
         }
 
@@ -120,15 +101,15 @@
         {
             get
             {
-                ushort address = Nes.CPU.Memory[Nes.CPU.PC + 1];
-                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
-                return Nes.CPU.Memory[address + Nes.CPU.Y];
+                ushort address = CPU.Memory[(ushort)(CPU.PC + 1)];
+                address = (ushort)(CPU.Memory[address] + CPU.Memory[(ushort)(address + 1)] >> 8);
+                return CPU.Memory[(ushort)(address + CPU.Y)];
             }
             set
             {
-                ushort address = Nes.CPU.Memory[Nes.CPU.PC + 1];
-                address = (ushort)(Nes.CPU.Memory[address] + Nes.CPU.Memory[address + 1] * 0x100);
-                Nes.CPU.Memory[address + Nes.CPU.Y] = value;
+                ushort address = CPU.Memory[(ushort)(CPU.PC + 1)];
+                address = (ushort)(CPU.Memory[address] + CPU.Memory[(ushort)(address + 1)] >> 8);
+                CPU.Memory[(ushort)(address + CPU.Y)] = value;
             }
         }
 
@@ -136,14 +117,14 @@
         {
             if((flags & ProcessorStatus.Zero) != 0)
             {
-                if (result == 0) Nes.CPU.P |= ProcessorStatus.Zero;
-                else Nes.CPU.P &= ~ProcessorStatus.Zero;
+                if (result == 0) CPU.P |= ProcessorStatus.Zero;
+                else CPU.P &= ~ProcessorStatus.Zero;
             }
 
             if ((flags & ProcessorStatus.Negative) != 0)
             {
-                if ((result & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Negative;
-                else Nes.CPU.P &= ~ProcessorStatus.Negative;
+                if ((result & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Negative;
+                else CPU.P &= ~ProcessorStatus.Negative;
             }
         }
     }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using NES_Emulator;
 
-namespace NES_Emulator.Memory
+namespace NESEmulator.Memory
 {
     public static class MemoryHelper
     {

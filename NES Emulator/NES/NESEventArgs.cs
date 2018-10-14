@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NES_Emulator.NES
+namespace NESEmulator.NES
 {
     public class NESEventArgs : EventArgs
     {

@@ -4,48 +4,64 @@
     {
         public void Operation_CPX(byte M)
         {
-            byte RES = (byte)(Nes.CPU.X - M);
+            var result = (byte)(CPU.X - M);
 
-            Flags(RES, ProcessorStatus.Zero | ProcessorStatus.Negative);
+            Flags(result, ProcessorStatus.Zero | ProcessorStatus.Negative);
 
-            if (Nes.CPU.X < M) Nes.CPU.P &= ~ProcessorStatus.Carry;
-            else Nes.CPU.P |= ProcessorStatus.Carry;
+            if (CPU.X < M) CPU.P &= ~ProcessorStatus.Carry;
+            else CPU.P |= ProcessorStatus.Carry;
+        }
+
+        protected CPX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class CPX_Immediate : CPX
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xE0; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xE0;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_CPX(Immediate);
+        }
+
+        public CPX_Immediate(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class CPX_ZeroPage : CPX
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0xE4; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0xE4;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_CPX(ZeroPage);
+        }
+
+        public CPX_ZeroPage(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class CPX_Absolute : CPX
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0xEC; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0xEC;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_CPX(Absolute);
+        }
+
+        public CPX_Absolute(CPU cpu) : base(cpu)
+        {
         }
     }
 }

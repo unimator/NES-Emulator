@@ -1,4 +1,4 @@
-﻿namespace NES_Emulator
+﻿namespace NESEmulator
 {
     partial class MainWindow
     {

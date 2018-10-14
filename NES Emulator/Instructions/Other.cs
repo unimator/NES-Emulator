@@ -2,60 +2,75 @@
 {
     public class BRK : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 7; } }
-        public override byte OpCode { get { return 0x00; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 7;
+        public override byte OpCode => 0x00;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.Push(NES.NES.Higher((ushort)(Nes.CPU.PC + 2)));
-            Nes.Push(NES.NES.Lower((ushort)(Nes.CPU.PC + 2)));
+            CPU.Push(NES.NES.Higher((ushort)(CPU.PC + 2)));
+            CPU.Push(NES.NES.Lower((ushort)(CPU.PC + 2)));
 
-            Nes.Push((byte)(Nes.CPU.P | ProcessorStatus.BreakCommand));
+            CPU.Push((byte)(CPU.P | ProcessorStatus.BreakCommand));
 
-            Nes.CPU.PC = (ushort)(Nes.CPU.Memory[0xFFFE] + (Nes.CPU.Memory[0xFFFF] << 8));
+            CPU.PC = (ushort)(CPU.Memory[0xFFFE] + (CPU.Memory[0xFFFF] << 8));
+        }
+
+        public BRK(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class RTI : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0x40; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0x40;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.P = (ProcessorStatus)Nes.Pop();
+            CPU.P = (ProcessorStatus)CPU.Pop();
 
-            Nes.CPU.PC = Nes.Pop();
-            Nes.CPU.PC += (ushort)(Nes.Pop() << 8); 
+            CPU.PC = CPU.Pop();
+            CPU.PC += (ushort)(CPU.Pop() << 8); 
+        }
+
+        public RTI(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class RTS : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0x60; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0x60;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.PC = Nes.Pop();
-            Nes.CPU.PC += (ushort)(Nes.Pop() << 8);
+            CPU.PC = CPU.Pop();
+            CPU.PC += (ushort)(CPU.Pop() << 8);
 
-            Nes.CPU.PC += 1;
+            CPU.PC += 1;
+        }
+
+        public RTS(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class NOP : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xEA; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xEA;
 
-        public override void Operation()
+        public override void Execute()
         {
-            return;
+        }
+
+        public NOP(CPU cpu) : base(cpu)
+        {
         }
     }
 }

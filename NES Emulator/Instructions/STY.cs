@@ -1,43 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public class STY_ZeroPage : Instruction
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0x84; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0x84;
 
-        public override void Operation()
+        public override void Execute()
         {
-            ZeroPage = Nes.CPU.Y;
+            ZeroPage = CPU.Y;
+        }
+
+        public STY_ZeroPage(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class STY_ZeroPageX : Instruction
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x94; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x94;
 
-        public override void Operation()
+        public override void Execute()
         {
-            ZeroPageX = Nes.CPU.Y;
+            ZeroPageX = CPU.Y;
+        }
+
+        public STY_ZeroPageX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class STY_Absolute : Instruction
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x8C; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x8C;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Absolute = Nes.CPU.Y;
+            Absolute = CPU.Y;
+        }
+
+        public STY_Absolute(CPU cpu) : base(cpu)
+        {
         }
     }
 }

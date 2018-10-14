@@ -1,89 +1,104 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
-    public abstract class DEC : Instruction
+    public class DEC_ZeroPage : Instruction
     {
-    }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 5;
+        public override byte OpCode => 0xC6;
 
-    public class DEC_ZeroPage : DEC
-    {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 5; } }
-        public override byte OpCode { get { return 0xC6; } }
-
-        public override void Operation()
+        public override void Execute()
         {
             ZeroPage = (byte)(ZeroPage - 1);
             Flags(ZeroPage, ProcessorStatus.Zero | ProcessorStatus.Negative);
         }
+
+        public DEC_ZeroPage(CPU cpu) : base(cpu)
+        {
+        }
     }
 
-    public class DEC_ZeroPageX : DEC
+    public class DEC_ZeroPageX : Instruction
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0xD6; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0xD6;
 
-        public override void Operation()
+        public override void Execute()
         {
             ZeroPageX = (byte)(ZeroPageX - 1);
             Flags(ZeroPageX, ProcessorStatus.Zero | ProcessorStatus.Negative);
         }
+
+        public DEC_ZeroPageX(CPU cpu) : base(cpu)
+        {
+        }
     }
 
-    public class DEC_Absolute : DEC
+    public class DEC_Absolute : Instruction
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0xCE; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0xCE;
 
-        public override void Operation()
+        public override void Execute()
         {
             Absolute = (byte)(Absolute - 1);
             Flags(Absolute, ProcessorStatus.Zero | ProcessorStatus.Negative);
         }
+
+        public DEC_Absolute(CPU cpu) : base(cpu)
+        {
+        }
     }
 
-    public class DEC_AbsoluteX : DEC
+    public class DEC_AbsoluteX : Instruction
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 7; } }
-        public override byte OpCode { get { return 0xDE; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 7;
+        public override byte OpCode => 0xDE;
 
-        public override void Operation()
+        public override void Execute()
         {
             AbsoluteX = (byte)(AbsoluteX - 1);
             Flags(AbsoluteX, ProcessorStatus.Zero | ProcessorStatus.Negative);
+        }
+
+        public DEC_AbsoluteX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class DEX : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2  ; } }
-        public override byte OpCode { get { return 0xCA; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xCA;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.X = (byte)(Nes.CPU.X - 1);
-            Flags(Nes.CPU.X, ProcessorStatus.Zero | ProcessorStatus.Negative);
+            CPU.X = (byte)(CPU.X - 1);
+            Flags(CPU.X, ProcessorStatus.Zero | ProcessorStatus.Negative);
+        }
+
+        public DEX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class DEY : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x88; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x88;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.Y = (byte)(Nes.CPU.Y - 1);
-            Flags(Nes.CPU.Y, ProcessorStatus.Zero | ProcessorStatus.Negative);
+            CPU.Y = (byte)(CPU.Y - 1);
+            Flags(CPU.Y, ProcessorStatus.Zero | ProcessorStatus.Negative);
+        }
+
+        public DEY(CPU cpu) : base(cpu)
+        {
         }
     }
 }

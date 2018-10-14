@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public abstract class SBC : Instruction
     {
@@ -11,115 +6,151 @@ namespace NES_Emulator.Instructions
         {
             //         _
             // A - M - C -> A
-            byte A = Nes.CPU.A;
-            byte RES = (byte)(A - M);
+            var A = CPU.A;
+            var result = (byte)(A - M);
 
-            if (M > A) Nes.CPU.P &= ~ProcessorStatus.Carry;
-            else Nes.CPU.P |= ProcessorStatus.Carry;
+            if (M > A) CPU.P &= ~ProcessorStatus.Carry;
+            else CPU.P |= ProcessorStatus.Carry;
 
-            if (((A ^ RES) & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Overflow;
-            else Nes.CPU.P &= ~ProcessorStatus.Overflow;
+            if (((A ^ result) & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Overflow;
+            else CPU.P &= ~ProcessorStatus.Overflow;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            Nes.CPU.A = RES;
+            CPU.A = result;
+        }
+
+        protected SBC(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_Immediate : SBC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xE9; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xE9;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(Immediate);
+        }
+
+        public SBC_Immediate(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_ZeroPage : SBC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0xE5; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0xE5;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(ZeroPage);
+        }
+
+        public SBC_ZeroPage(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_ZeroPageX : SBC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0xF5; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0xF5;
 
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(ZeroPageX);
+        }
+
+        public SBC_ZeroPageX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_Absolute : SBC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0xED; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0xED;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(Absolute);
+        }
+
+        public SBC_Absolute(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_AbsoluteX : SBC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0xFD; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0xFD;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(AbsoluteX);
+        }
+
+        public SBC_AbsoluteX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_AbsoluteY : SBC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0xF9; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0xF9;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(AbsoluteY);
+        }
+
+        public SBC_AbsoluteY(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_IndirectX : SBC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0xE1; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0xE1;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(IndirectX);
+        }
+
+        public SBC_IndirectX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class SBC_IndirectY : SBC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 5; } }
-        public override byte OpCode { get { return 0xF1; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 5;
+        public override byte OpCode => 0xF1;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_SBC(IndirectY);
+        }
+
+        public SBC_IndirectY(CPU cpu) : base(cpu)
+        {
         }
     }
 }

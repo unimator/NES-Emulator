@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using NES_Emulator.Memory;
 
-namespace NES_Emulator
+namespace NESEmulator
 {
     public partial class MainWindow : Form
     {

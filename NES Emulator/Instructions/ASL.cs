@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public abstract class ASL : Instruction
     {
@@ -11,100 +6,124 @@ namespace NES_Emulator.Instructions
         {
 
         }
+
+        protected ASL(CPU cpu) : base(cpu)
+        {
+        }
     }
 
     public class ASL_Accumulator : ASL
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x0A; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x0A;
 
-        public override void Operation()
+        public override void Execute()
         {
-            byte RES = (byte)(Nes.CPU.A << 1);
+            var result = (byte)(CPU.A << 1);
 
-            if ((Nes.CPU.A & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
-            else Nes.CPU.P &= ~ProcessorStatus.Carry;
+            if ((CPU.A & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Carry;
+            else CPU.P &= ~ProcessorStatus.Carry;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            Nes.CPU.A = RES;
+            CPU.A = result;
+        }
+
+        public ASL_Accumulator(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ASL_ZeroPage : ASL
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 5; } }
-        public override byte OpCode { get { return 0x06; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 5;
+        public override byte OpCode => 0x06;
 
-        public override void Operation()
+        public override void Execute()
         {
-            byte RES = (byte)(ZeroPage << 1);
+            var result = (byte)(ZeroPage << 1);
 
-            if ((ZeroPage & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
-            else Nes.CPU.P &= ~ProcessorStatus.Carry;
+            if ((ZeroPage & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Carry;
+            else CPU.P &= ~ProcessorStatus.Carry;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            ZeroPage = RES;
+            ZeroPage = result;
+        }
+
+        public ASL_ZeroPage(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ASL_ZeroPageX : ASL
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0x16; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0x16;
 
-        public override void Operation()
+        public override void Execute()
         {
-            byte RES = (byte)(ZeroPageX << 1);
+            var result = (byte)(ZeroPageX << 1);
 
-            if ((ZeroPageX & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
-            else Nes.CPU.P &= ~ProcessorStatus.Carry;
+            if ((ZeroPageX & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Carry;
+            else CPU.P &= ~ProcessorStatus.Carry;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            ZeroPageX = RES;
+            ZeroPageX = result;
+        }
+
+        public ASL_ZeroPageX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ASL_Absolute : ASL
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0x0E; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0x0E;
 
-        public override void Operation()
+        public override void Execute()
         {
-            byte RES = (byte)(Absolute << 1);
+            var result = (byte)(Absolute << 1);
 
-            if ((Absolute & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
-            else Nes.CPU.P &= ~ProcessorStatus.Carry;
+            if ((Absolute & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Carry;
+            else CPU.P &= ~ProcessorStatus.Carry;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            Absolute = RES;
+            Absolute = result;
+        }
+
+        public ASL_Absolute(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ASL_AbsoluteX : ASL
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 7; } }
-        public override byte OpCode { get { return 0x1E; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 7;
+        public override byte OpCode => 0x1E;
 
-        public override void Operation()
+        public override void Execute()
         {
-            byte RES = (byte)(AbsoluteX << 1);
+            var result = (byte)(AbsoluteX << 1);
 
-            if ((AbsoluteX & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Carry;
-            else Nes.CPU.P &= ~ProcessorStatus.Carry;
+            if ((AbsoluteX & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Carry;
+            else CPU.P &= ~ProcessorStatus.Carry;
 
-            Flags(RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            AbsoluteX = RES;
+            AbsoluteX = result;
+        }
+
+        public ASL_AbsoluteX(CPU cpu) : base(cpu)
+        {
         }
     }
 }

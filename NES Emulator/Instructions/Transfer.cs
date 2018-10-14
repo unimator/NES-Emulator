@@ -1,91 +1,110 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NES_Emulator.Instructions
+﻿namespace NES_Emulator.Instructions
 {
     public class TAX : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xAA; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xAA;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.X = Nes.CPU.A;
+            CPU.X = CPU.A;
 
-            Flags(Nes.CPU.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TAX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class TAY : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xA8; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xA8;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.Y = Nes.CPU.A;
+            CPU.Y = CPU.A;
 
-            Flags(Nes.CPU.Y, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.Y, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TAY(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class TXA : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x8A; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x8A;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.A = Nes.CPU.X;
+            CPU.A = CPU.X;
 
-            Flags(Nes.CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TXA(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class TYA : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x98; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x98;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.A = Nes.CPU.Y;
+            CPU.A = CPU.Y;
 
-            Flags(Nes.CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TYA(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class TSX : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0xBA; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0xBA;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.X = Nes.CPU.SP;
+            CPU.X = CPU.SP;
 
-            Flags(Nes.CPU.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.X, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TSX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class TXS : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x9A; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x9A;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.SP = Nes.CPU.X;
+            CPU.SP = CPU.X;
 
-            Flags(Nes.CPU.SP, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags(CPU.SP, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public TXS(CPU cpu) : base(cpu)
+        {
         }
     }
 }

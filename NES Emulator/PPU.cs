@@ -10,26 +10,26 @@ namespace NES_Emulator
         //Registers
         public ControlRegister Control
         {
-            get { return (ControlRegister)CPU.Memory[0x2000]; }
-            set { CPU.Memory[0x2000] = (byte)value; }
+            get => (ControlRegister)CPU.Memory[0x2000];
+            set => CPU.Memory[0x2000] = (byte)value;
         }
 
         public MaskRegister Mask
         {
-            get { return (MaskRegister) (CPU.Memory[0x2001]); }
-            set { CPU.Memory[0x2001] = (byte) value; }
+            get => (MaskRegister) CPU.Memory[0x2001];
+            set => CPU.Memory[0x2001] = (byte) value;
         }
 
         public StatusRegister Status
         {
-            get { return (StatusRegister) (CPU.Memory[0x2002]); }
-            set { CPU.Memory[0x2002] = (byte) value; }
+            get => (StatusRegister) (CPU.Memory[0x2002]);
+            set => CPU.Memory[0x2002] = (byte) value;
         }
 
         public byte SpriteMemoryAddress
         {
-            get { return CPU.Memory[0x2003]; }
-            set { CPU.Memory[0x2003] = value; }
+            get => CPU.Memory[0x2003];
+            set => CPU.Memory[0x2003] = value;
         }
 
         public byte SpriteMemoryData
@@ -70,18 +70,23 @@ namespace NES_Emulator
 
         public byte Address
         {
-            get { return CPU.Memory[0x2006]; }
-            set { CPU.Memory[0x2006] = value; }
+            get => CPU.Memory[0x2006];
+            set => CPU.Memory[0x2006] = value;
         }
 
         public byte Data
         {
-            get { return CPU.Memory[0x2007]; }
-            set { CPU.Memory[0x2007] = value; }
+            get => CPU.Memory[0x2007];
+            set => CPU.Memory[0x2007] = value;
         }
 
-        //Memory
-        private PPUMemory _memory;
+        public byte OamDma
+        {
+            get => CPU.Memory[0x4014];
+            set => CPU.Memory[0x4014] = value;
+        } 
+
+        private readonly PPUMemory _memory;
         
         public PPU(CPU cpu)
         {

@@ -5,116 +5,152 @@
         protected void Operation_ADC(byte M)
         {
             // A + M + C -> A
-            byte A = Nes.CPU.A;
-            byte C = (Nes.CPU.P & ProcessorStatus.Carry) != 0 ? (byte)1 : (byte)0;
-            ushort RES = (ushort)(A + M + C);
+            var A = CPU.A;
+            var C = (CPU.P & ProcessorStatus.Carry) != 0 ? (byte)1 : (byte)0;
+            var result = (ushort)(A + M + C);
 
-            if (RES < 0xFF) Nes.CPU.P &= ~ProcessorStatus.Carry;
-            else Nes.CPU.P |= ProcessorStatus.Carry;
+            if (result < 0xFF) CPU.P &= ~ProcessorStatus.Carry;
+            else CPU.P |= ProcessorStatus.Carry;
 
-            if ((~(A ^ M) & (A ^ RES) & (1 << 7)) != 0) Nes.CPU.P |= ProcessorStatus.Overflow;
-            else Nes.CPU.P &= ~ProcessorStatus.Overflow;
+            if ((~(A ^ M) & (A ^ result) & (1 << 7)) != 0) CPU.P |= ProcessorStatus.Overflow;
+            else CPU.P &= ~ProcessorStatus.Overflow;
 
-            Flags((byte)RES, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            Flags((byte)result, ProcessorStatus.Negative | ProcessorStatus.Zero);
 
-            Nes.CPU.A = (byte)RES;
+            CPU.A = (byte)result;
+        }
+
+        protected ADC(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_Immediate : ADC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 2; } }
-        public override byte OpCode { get { return 0x69; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 2;
+        public override byte OpCode => 0x69;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(Immediate);
+        }
+
+        public ADC_Immediate(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_ZeroPage : ADC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0x65; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0x65;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(ZeroPage);
+        }
+
+        public ADC_ZeroPage(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_ZeroPageX : ADC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x75; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x75;
 
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(ZeroPageX);
+        }
+
+        public ADC_ZeroPageX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_Absolute : ADC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x6D; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x6D;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(Absolute);
+        }
+
+        public ADC_Absolute(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_AbsoluteX : ADC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x7D; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x7D;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(AbsoluteX);
+        }
+
+        public ADC_AbsoluteX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_AbsoluteY : ADC
     {
-        public override byte NoBytes { get { return 3; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x79; } }
+        public override byte NoBytes => 3;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x79;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(AbsoluteY);
+        }
+
+        public ADC_AbsoluteY(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_IndirectX : ADC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 6; } }
-        public override byte OpCode { get { return 0x61; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 6;
+        public override byte OpCode => 0x61;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(IndirectX);
+        }
+
+        public ADC_IndirectX(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class ADC_IndirectY : ADC
     {
-        public override byte NoBytes { get { return 2; } }
-        public override byte NoCycles { get { return 5; } }
-        public override byte OpCode { get { return 0x71; } }
+        public override byte NoBytes => 2;
+        public override byte NoCycles => 5;
+        public override byte OpCode => 0x71;
 
-        public override void Operation()
+        public override void Execute()
         {
             Operation_ADC(IndirectY);
+        }
+
+        public ADC_IndirectY(CPU cpu) : base(cpu)
+        {
         }
     }
 }

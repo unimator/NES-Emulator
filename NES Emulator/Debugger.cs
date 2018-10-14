@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
-using NES_Emulator.Memory;
-using NES_Emulator.NES;
+using NESEmulator.Memory;
+using NESEmulator.NES;
 
 namespace NES_Emulator
 {
@@ -17,8 +17,8 @@ namespace NES_Emulator
 
         public Debugger(NES.NES nes)
         {
-            breakPoints = new bool[0x1000];
-            for(int i = 0; i < 0x1000; ++i)
+            breakPoints = new bool[0x10000];
+            for(int i = 0; i < 0x10000; ++i)
             {
                 breakPoints[i] = false;
             }
@@ -26,7 +26,7 @@ namespace NES_Emulator
             nesEventOccured = new AutoResetEvent(false);
 
             this.nes = nes;
-            //nes.LoopBeginning += Nes_LoopBeginning;
+            nes.LoopBeginning += Nes_LoopBeginning;
             nes.ErrorOccurred += Nes_ErrorOccurred;
         }
 
@@ -44,19 +44,15 @@ namespace NES_Emulator
 
         public void Run()
         {
-            //nes.LoopBeginning += Nes_LoopBeginning;
+            nes.LoopBeginning += Nes_LoopBeginning;
             while (true)
             {
                 nesEventOccured.WaitOne();
-                //Console.ReadKey();
-                //nes.LoopBeginning -= Nes_LoopBeginning;
-                //Console.ReadLine();
+                nes.LoopBeginning -= Nes_LoopBeginning;
 
-                string line = null;
-                
                 if (debugMode == false)
                 {
-                    //Console.WriteLine("Debug mode must be on");
+                    Console.WriteLine("Debug mode must be on");
                     continue;
                 }
                 nes.Execution.Set();
@@ -73,6 +69,7 @@ namespace NES_Emulator
             }
             while ("n".Equals(line) == false && debugMode == true)
             {
+                Console.WriteLine("waiting for input...");
                 line = Console.ReadLine();
 
                 if (line.Equals("p")) PrintRegs();
@@ -146,7 +143,7 @@ namespace NES_Emulator
             else sbP.Append("b");
             if ((cpu.P & ProcessorStatus.DecimalMode) != 0) sbP.Append("D");
             else sbP.Append("d");
-            if ((cpu.P & ProcessorStatus.InterruptDisable) != 0) sbP.Append("I");
+            if ((cpu.P & ProcessorStatus.InterruptDisabled) != 0) sbP.Append("I");
             else sbP.Append("i");
             if ((cpu.P & ProcessorStatus.Zero) != 0) sbP.Append("Z");
             else sbP.Append("z");

@@ -2,50 +2,66 @@
 {
     public class PHA : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0x48; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0x48;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.Push(Nes.CPU.A);
+            CPU.Push(CPU.A);
+        }
+
+        public PHA(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class PHP : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 3; } }
-        public override byte OpCode { get { return 0x08; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 3;
+        public override byte OpCode => 0x08;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.Push((byte)Nes.CPU.P);
+            CPU.Push((byte)CPU.P);
+        }
+
+        public PHP(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class PLA : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x68; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x68;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.A = Nes.Pop();
-            Flags(Nes.CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+            CPU.A = CPU.Pop();
+            Flags(CPU.A, ProcessorStatus.Negative | ProcessorStatus.Zero);
+        }
+
+        public PLA(CPU cpu) : base(cpu)
+        {
         }
     }
 
     public class PLP : Instruction
     {
-        public override byte NoBytes { get { return 1; } }
-        public override byte NoCycles { get { return 4; } }
-        public override byte OpCode { get { return 0x28; } }
+        public override byte NoBytes => 1;
+        public override byte NoCycles => 4;
+        public override byte OpCode => 0x28;
 
-        public override void Operation()
+        public override void Execute()
         {
-            Nes.CPU.P = (ProcessorStatus)Nes.Pop();
+            CPU.P = (ProcessorStatus)CPU.Pop();
+        }
+
+        public PLP(CPU cpu) : base(cpu)
+        {
         }
     }
 }

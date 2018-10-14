@@ -1,4 +1,4 @@
-﻿namespace NES_Emulator.NES
+﻿namespace NESEmulator.NES
 {
     public enum Mirroring
     {
@@ -6,7 +6,7 @@
         Vertival = 0x1
     }
 
-    public enum TVSystem
+    public enum TvSystem
     {
         NTSC = 0x0,
         PAL = 0x1,
