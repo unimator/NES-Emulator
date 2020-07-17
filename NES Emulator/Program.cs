@@ -21,7 +21,7 @@ namespace NES_Emulator
             if (nesRom != null)
             {
                 var nes = new NES.NES(nesRom);
-                MainLoop();
+                nes.MainLoop();
             }
             
             Console.ReadKey();

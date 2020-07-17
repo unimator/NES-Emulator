@@ -6,5 +6,10 @@
             : base(size)
         {
         }
+
+        protected override ushort GetAbsoluteAddress(ushort address)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
